@@ -1,0 +1,54 @@
+services:
+
+    php:
+        build: docker/php
+        tty: true
+        volumes:
+            - ./:/var/www/app
+            - ./docker/php/z-overrides.ini:/usr/local/etc/php/conf.d/z-overrides.ini
+        depends_on:
+            - psql
+        networks:
+            - psql
+            - nginx
+        env_file:
+            .env
+
+    nginx:
+        image: nginx:1.27.5 # я предпочитаю указывать минорные версии, чтобы гарантировать согласованность сервисов
+        tty: true
+        volumes:
+            - ./docker/nginx:/etc/nginx/conf.d
+            - ./:/var/www/app
+        ports:
+            - "${NGINX_EXTERNAL_PORT:-3007}:80"
+        depends_on:
+            - php # nginx не сможет подняться, если php-fpm недоступен
+        networks:
+            - nginx
+        env_file:
+            .env
+
+    psql:
+        image: postgres:17.6
+        restart: always
+        ports:
+            - "${DB_EXTERNAL_PORT:-3008}:${DB_PORT:-3306}"
+        environment:
+            POSTGRES_DB: ${DB_DATABASE}
+            POSTGRES_USER: ${DB_USERNAME}
+            POSTGRES_PASSWORD: ${DB_PASSWORD}
+        volumes:
+            - ./volumes/psql:/var/lib/postgresql
+        networks:
+            - psql
+        env_file:
+            .env
+
+
+networks:
+    # Отдельная сеть для каждого сервиса: мы не даем сервису доступа больше, чем нужно
+    psql:
+        driver: bridge
+    nginx:
+        driver: bridge
