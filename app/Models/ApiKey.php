@@ -57,6 +57,6 @@ class ApiKey extends Model
     public function toTokenValue(): string
     {
         $id = (string)$this->id;
-        return base64_encode($id . Hash::make($id . env('APP_KEY')));
+        return base64_encode($id . md5($id . env('APP_KEY')));
     }
 }

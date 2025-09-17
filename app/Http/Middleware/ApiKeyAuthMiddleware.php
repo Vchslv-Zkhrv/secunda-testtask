@@ -34,7 +34,7 @@ class ApiKeyAuthMiddleware
         $id = substr($token, 0, 36);
         $sign = substr($token, 36);
 
-        if (Hash::check($id . env('APP_KEY'), $sign)) {
+        if (md5($id . env('APP_KEY')) != $sign) {
             return new Response("Authorization token corrupted", 401);
         }
 

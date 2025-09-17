@@ -1,0 +1,929 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Test task API",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/building": {
+            "get": {
+                "tags": [
+                    "Building"
+                ],
+                "description": "Get list of all buildings",
+                "operationId": "3414f12e1d87ae6869b3c8173181fc3d",
+                "responses": {
+                    "200": {
+                        "description": "List of buildings",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/BuildingDTO"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "http": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Building"
+                ],
+                "description": "Create a building",
+                "operationId": "81585b0eb585c93578fd2c9806339bb6",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateBuildingRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Building created"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "409": {
+                        "description": "Id already taken"
+                    }
+                },
+                "security": [
+                    {
+                        "http": []
+                    }
+                ]
+            }
+        },
+        "/api/business-activity": {
+            "get": {
+                "tags": [
+                    "BusinessActivity"
+                ],
+                "description": "Get full tree of activities",
+                "operationId": "fe5f4ead8993f0059716cd4d82709016",
+                "responses": {
+                    "200": {
+                        "description": "Tree of activities",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/BusinessActivityTreeItem"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "http": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "BusinessActivity"
+                ],
+                "description": "Create an activity",
+                "operationId": "f658d1cdc274832bf291bf1a150d3ad0",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateBusinessActivityRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Activity created"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Cannot find parent activity by id"
+                    },
+                    "409": {
+                        "description": "Id already taken|Max tree depth exceeded"
+                    }
+                },
+                "security": [
+                    {
+                        "http": []
+                    }
+                ]
+            }
+        },
+        "/api/company": {
+            "get": {
+                "tags": [
+                    "Company"
+                ],
+                "description": "Get list of all companies",
+                "operationId": "3e0bffb951b3f31f83aadc004638122b",
+                "responses": {
+                    "200": {
+                        "description": "List of companies",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/CompanyDTO"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "http": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Company"
+                ],
+                "description": "Create a company",
+                "operationId": "faf1545d2af89079ca55c4f9ed6ea302",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateCompanyRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Company created"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Cannot find building by buildingId"
+                    },
+                    "409": {
+                        "description": "Id already taken"
+                    }
+                },
+                "security": [
+                    {
+                        "http": []
+                    }
+                ]
+            }
+        },
+        "/api/building/geo/rect": {
+            "post": {
+                "tags": [
+                    "Building"
+                ],
+                "description": "Find buildings inside a rect area",
+                "operationId": "c9694d843951c36ecc389f75e505537e",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Rect"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "List of buildings",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/BuildingDTO"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "http": []
+                    }
+                ]
+            }
+        },
+        "/api/building/geo/circle": {
+            "post": {
+                "tags": [
+                    "Building"
+                ],
+                "description": "Find buildings inside a circle area",
+                "operationId": "5c6eec6938e5b6ec1cfa1d60029f06b5",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Circle"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "List of buildings",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/BuildingDTO"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "http": []
+                    }
+                ]
+            }
+        },
+        "/api/building/{id}": {
+            "get": {
+                "tags": [
+                    "Building"
+                ],
+                "description": "Get info about specific building",
+                "operationId": "954726f8d6bc5842c83d324fadba43b2",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Building",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BuildingDTO"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Cannot find building by id"
+                    }
+                },
+                "security": [
+                    {
+                        "http": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Building"
+                ],
+                "description": "Update building",
+                "operationId": "666c6b0d6d95f3f6e3baa86f4bb02605",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Building updated"
+                    },
+                    "404": {
+                        "description": "Cannot find building by id"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "http": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Building"
+                ],
+                "description": "Delete building",
+                "operationId": "93415d94ec193f94d107514d428dca8c",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Building updated"
+                    },
+                    "404": {
+                        "description": "Cannot find building by id"
+                    }
+                },
+                "security": [
+                    {
+                        "http": []
+                    }
+                ]
+            }
+        },
+        "/api/building/{id}/companies": {
+            "get": {
+                "tags": [
+                    "Building"
+                ],
+                "description": "List companies in building",
+                "operationId": "f492ca07d0c6eeab76c7d55b78924f73",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of companies",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/CompanyDTO"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Cannot find building by id"
+                    }
+                },
+                "security": [
+                    {
+                        "http": []
+                    }
+                ]
+            }
+        },
+        "/api/business-activity/{id}": {
+            "get": {
+                "tags": [
+                    "BusinessActivity"
+                ],
+                "description": "Get activity subtree",
+                "operationId": "a9927395040ae17626e3f21ad4610ebf",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Tree of activities",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BusinessActivityTreeItem"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Cannot find activity by id"
+                    }
+                },
+                "security": [
+                    {
+                        "http": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "BusinessActivity"
+                ],
+                "description": "Update activity",
+                "operationId": "8ef8cc93f2b5c93c85129edad43895b8",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateBusinessActivityRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Activity updated"
+                    },
+                    "404": {
+                        "description": "Cannot find activity by id"
+                    }
+                },
+                "security": [
+                    {
+                        "http": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "BusinessActivity"
+                ],
+                "description": "Delete a company",
+                "operationId": "b47807edc2e43b87e108c580103eed4f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Activity deleted"
+                    },
+                    "404": {
+                        "description": "Cannot find activity by id"
+                    }
+                },
+                "security": [
+                    {
+                        "http": []
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "BusinessActivity"
+                ],
+                "description": "Move activitity within a tree",
+                "operationId": "d09e145b447a50fbb3ac7a3b907061ab",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/MoveBusinessActivityRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "New activity tree",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BusinessActivityTreeItem"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Cannot find activity by id"
+                    },
+                    "409": {
+                        "description": "Max tree depth exceeded"
+                    }
+                },
+                "security": [
+                    {
+                        "http": []
+                    }
+                ]
+            }
+        },
+        "/api/business-activity/{id}/companies": {
+            "get": {
+                "tags": [
+                    "BusinessActivity"
+                ],
+                "description": "Get companies by activity",
+                "operationId": "c7c34fb560aaadbe06aa275c4da6303d",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of companies",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/CompanyDTO"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Cannot find activity by id"
+                    }
+                },
+                "security": [
+                    {
+                        "http": []
+                    }
+                ]
+            }
+        },
+        "/api/company/search": {
+            "post": {
+                "tags": [
+                    "Company"
+                ],
+                "description": "Search companies by name",
+                "operationId": "bec748b9b6ae5814dc3823ee46fbd6ff",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SearchCompanyRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "List of companies",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/CompanyDTO"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "http": []
+                    }
+                ]
+            }
+        },
+        "/api/company/{id}": {
+            "get": {
+                "tags": [
+                    "Company"
+                ],
+                "description": "Get info about specific company",
+                "operationId": "29b0f8f11c5e74b0c7a9f94f223c0abc",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Company",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CompanyDTO"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Cannot find company by id"
+                    }
+                },
+                "security": [
+                    {
+                        "http": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Company"
+                ],
+                "description": "Update a company",
+                "operationId": "dba5691bd7818c368accfd785048ea90",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateCompanyRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Company updated"
+                    },
+                    "404": {
+                        "description": "Cannot find company by id"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                },
+                "security": [
+                    {
+                        "http": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Company"
+                ],
+                "description": "Delete a company",
+                "operationId": "a073402836212623826fbe1e5a591454",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Company deleted"
+                    },
+                    "404": {
+                        "description": "Cannot find company by id"
+                    }
+                },
+                "security": [
+                    {
+                        "http": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "BuildingDTO": {
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "address": {
+                        "type": "string"
+                    },
+                    "coordinates": {
+                        "$ref": "#/components/schemas/Point"
+                    }
+                },
+                "type": "object"
+            },
+            "CompanyDTO": {
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "buildingId": {
+                        "type": "string"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            },
+            "CreateBuildingRequest": {
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "address": {
+                        "type": "address"
+                    },
+                    "coordinates": {
+                        "$ref": "#/components/schemas/Point"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateBuildingRequest": {
+                "properties": {
+                    "address": {
+                        "type": "string"
+                    },
+                    "coordinates": {
+                        "$ref": "#/components/schemas/Point"
+                    }
+                },
+                "type": "object"
+            },
+            "CreateBusinessActivityRequest": {
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "parentId": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "MoveBusinessActivityRequest": {
+                "properties": {
+                    "parentId": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateBusinessActivityRequest": {
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "CreateCompanyRequest": {
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "buildingId": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "SearchCompanyRequest": {
+                "properties": {
+                    "search": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateCompanyRequest": {
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "Circle": {
+                "properties": {
+                    "center": {
+                        "$ref": "#/components/schemas/Point"
+                    },
+                    "radius": {
+                        "type": "number",
+                        "format": "float"
+                    }
+                },
+                "type": "object"
+            },
+            "Point": {
+                "properties": {
+                    "latitude": {
+                        "type": "number",
+                        "format": "float"
+                    },
+                    "longitude": {
+                        "type": "number",
+                        "format": "float"
+                    }
+                },
+                "type": "object"
+            },
+            "Rect": {
+                "properties": {
+                    "topLeft": {
+                        "$ref": "#/components/schemas/Point"
+                    },
+                    "bottomRight": {
+                        "$ref": "#/components/schemas/Point"
+                    }
+                },
+                "type": "object"
+            },
+            "BusinessActivityTreeItem": {
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "childs": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/BusinessActivityTreeItem"
+                        }
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "http": {
+                "type": "apiKey",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Building",
+            "description": "Building"
+        },
+        {
+            "name": "BusinessActivity",
+            "description": "BusinessActivity"
+        },
+        {
+            "name": "Company",
+            "description": "Company"
+        }
+    ]
+}

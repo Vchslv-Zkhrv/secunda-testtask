@@ -30,7 +30,7 @@ services:
             .env
 
     psql:
-        image: postgres:17.6
+        build: docker/psql # собираем postgres с расширениями
         restart: always
         ports:
             - "${DB_EXTERNAL_PORT:-3008}:${DB_PORT:-3306}"
