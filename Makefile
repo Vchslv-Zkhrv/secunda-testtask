@@ -25,8 +25,8 @@ setup:
 	$(MAKE) --ignore-errors env;
 	$(MAKE) build;
 	$(MAKE) up;
-	$(MAKE) generate-app-key;
 	$(MAKE) install;
+	$(MAKE) generate-app-key;
 	$(MAKE) migrate;
 	$(MAKE) seed;
 	$(MAKE) apikey;
